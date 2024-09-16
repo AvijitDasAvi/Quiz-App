@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/pages/continuing_page.dart';
 import 'package:quiz_app/widgets/feature_container.dart';
 import 'package:quiz_app/widgets/gradient_color.dart';
 
@@ -83,12 +84,22 @@ class _HomePageState extends State<HomePage> {
                 height: 10.0,
               ),
               //Level 2 container
-              FeatureContainer(
-                icon: Icons.play_arrow,
-                color: secondContainer(),
-                levelText: "Level 2",
-                discriptionText: "Continuing",
-                imagePath: "assets/images/level2.png",
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Continuing(),
+                    ),
+                  );
+                },
+                child: FeatureContainer(
+                  icon: Icons.play_arrow,
+                  color: secondContainer(),
+                  levelText: "Level 2",
+                  discriptionText: "Continuing",
+                  imagePath: "assets/images/level2.png",
+                ),
               ),
               SizedBox(
                 height: 10.0,
