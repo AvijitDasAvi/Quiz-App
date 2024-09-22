@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/widgets/gradient_color.dart';
 
-class Continuing extends StatefulWidget {
-  const Continuing({super.key});
+// ignore: camel_case_types
+class Level_Page extends StatelessWidget {
+  final String levelText;
+  final String levelName;
+  final String pictureLoc;
+  final String infoText;
+  final LinearGradient backgroundColor;
 
-  @override
-  State<Continuing> createState() => _ContinuingState();
-}
+  const Level_Page(
+      {super.key,
+      required this.levelText,
+      required this.levelName,
+      required this.pictureLoc,
+      required this.infoText,
+      required this.backgroundColor});
 
-class _ContinuingState extends State<Continuing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,7 @@ class _ContinuingState extends State<Continuing> {
           padding: EdgeInsets.all(20.0),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            gradient: secondContainer(),
+            gradient: backgroundColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,13 +52,13 @@ class _ContinuingState extends State<Continuing> {
               ),
               //Top image
               Image.asset(
-                "assets/images/level2.png",
+                pictureLoc,
                 height: 400,
                 width: 400,
               ),
               //Text widgets
               Text(
-                "Level 2",
+                levelText,
                 style: TextStyle(
                   color: Colors.white70,
                   fontWeight: FontWeight.w500,
@@ -59,7 +66,7 @@ class _ContinuingState extends State<Continuing> {
                 ),
               ),
               Text(
-                "Continuing",
+                levelName,
                 style: TextStyle(
                   fontSize: 30.0,
                   color: Colors.white,
@@ -69,7 +76,7 @@ class _ContinuingState extends State<Continuing> {
                 height: 15.0,
               ),
               Text(
-                "Do you feel confident? Here you'll challenge one of our most difficult travel questions!",
+                infoText,
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w600,

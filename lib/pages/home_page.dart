@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/pages/continuing_page.dart';
+import 'package:quiz_app/pages/level_page.dart';
 import 'package:quiz_app/widgets/feature_container.dart';
 import 'package:quiz_app/widgets/gradient_color.dart';
 
@@ -16,7 +16,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+          margin:
+              EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               ),
               //Text widgets
               Text(
-                "Let's Play",
+                "Let's Play for English",
                 style: TextStyle(
                     color: Colors.redAccent,
                     fontSize: 25.0,
@@ -73,12 +74,29 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500),
               ),
               //Level 1 container
-              FeatureContainer(
-                color: firstContainer(),
-                icon: Icons.done,
-                levelText: "Level 1",
-                discriptionText: "Travel Newbie",
-                imagePath: "assets/images/level1.png",
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Level_Page(
+                        levelText: "Level 1",
+                        levelName: "Basic",
+                        pictureLoc: "assets/images/level1.png",
+                        infoText:
+                            "A basic question for users is one that is simple, direct, and focuses on obtaining straightforward information or feedback. It's usually clear and to the point, allowing users to respond easily without confusion. Are you ready?",
+                        backgroundColor: firstContainer(),
+                      ),
+                    ),
+                  );
+                },
+                child: FeatureContainer(
+                  color: firstContainer(),
+                  icon: Icons.done,
+                  levelText: "Level 1",
+                  discriptionText: "Basic",
+                  imagePath: "assets/images/level1.png",
+                ),
               ),
               SizedBox(
                 height: 10.0,
@@ -89,7 +107,14 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Continuing(),
+                      builder: (context) => Level_Page(
+                        levelText: "Level 2",
+                        levelName: "Advanced",
+                        pictureLoc: "assets/images/level2.png",
+                        infoText:
+                            "An advanced question is one that delves deeper into a topic, often requiring a more detailed or expert-level response. Are you ready?",
+                        backgroundColor: secondContainer(),
+                      ),
                     ),
                   );
                 },
@@ -97,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icons.play_arrow,
                   color: secondContainer(),
                   levelText: "Level 2",
-                  discriptionText: "Continuing",
+                  discriptionText: "Advanced",
                   imagePath: "assets/images/level2.png",
                 ),
               ),
@@ -105,12 +130,29 @@ class _HomePageState extends State<HomePage> {
                 height: 10.0,
               ),
               //Level 3 container
-              FeatureContainer(
-                icon: Icons.lock,
-                color: thirdContainer(),
-                levelText: "Level 3",
-                discriptionText: "Experienced",
-                imagePath: "assets/images/level3.png",
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Level_Page(
+                        levelText: "Level 3",
+                        levelName: "Experienced",
+                        pictureLoc: "assets/images/level3.png",
+                        infoText:
+                            "An experienced question should reflect a deeper understanding of the topic and aim to explore more complex or nuanced aspects. Are you ready?",
+                        backgroundColor: thirdContainer(),
+                      ),
+                    ),
+                  );
+                },
+                child: FeatureContainer(
+                  icon: Icons.lock,
+                  color: thirdContainer(),
+                  levelText: "Level 3",
+                  discriptionText: "Experienced",
+                  imagePath: "assets/images/level3.png",
+                ),
               ),
             ],
           ),
