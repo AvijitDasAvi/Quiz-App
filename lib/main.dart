@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/pages/home_page.dart';
+import 'package:quiz_app/pages/question.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quiz-App',
-      home: HomePage(),
+      home: Question(),
     );
   }
 }
