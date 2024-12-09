@@ -59,12 +59,25 @@ class _HomePageState extends State<HomePage> {
                 height: 8.0,
               ),
               //Text widgets
-              Text(
-                "Let's Play for English",
-                style: TextStyle(
-                    color: Colors.redAccent,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Let's Play for ",
+                      style: TextStyle(
+                          color: Colors.redAccent,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: "Flutter",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 42, 19, 255),
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
               Text(
                 "Be the first!",
