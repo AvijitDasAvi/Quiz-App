@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCZU-ob0R-mgT2dEmhDkR0OLEbLQeNhJZc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>218508880841</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.quizApp</string>
+	<key>PROJECT_ID</key>
+	<string>quiz-app-8d0ab</string>
+	<key>STORAGE_BUCKET</key>
+	<string>quiz-app-8d0ab.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:218508880841:ios:301cada4a5eee61e945618</string>
+</dict>
+</plist>
