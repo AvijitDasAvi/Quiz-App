@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/admin/add_quiz.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -160,29 +162,34 @@ class _AdminLoginState extends State<AdminLogin> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: 10.0,
-                              bottom: 10.0,
-                            ),
-                            margin: EdgeInsets.only(
-                              top: 20.0,
-                              bottom: 10.0,
-                              left: 15.0,
-                              right: 15.0,
-                            ),
-                            width: width,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                          InkWell(
+                            onTap: () {
+                              LoginAdmin();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10.0,
+                              ),
+                              margin: EdgeInsets.only(
+                                top: 20.0,
+                                bottom: 10.0,
+                                left: 15.0,
+                                right: 15.0,
+                              ),
+                              width: width,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -198,5 +205,77 @@ class _AdminLoginState extends State<AdminLogin> {
         ],
       ),
     );
+  }
+
+  void LoginAdmin() {
+    String username = userNameController.text.trim();
+    String password = userPasswordController.text.trim();
+
+    if (username.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Username cannot be empty.",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Password cannot be empty.",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+      return;
+    }
+
+    FirebaseFirestore.instance.collection("Admin").get().then((snapshot) {
+      bool isUserFound = false;
+
+      for (var result in snapshot.docs) {
+        if (result.data()['id'] == username) {
+          isUserFound = true;
+
+          if (result.data()['password'] != password) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Your Password is incorrect."),
+              ),
+            );
+          } else {
+            Route route = MaterialPageRoute(builder: (context) => AddQuiz());
+            Navigator.pushReplacement(context, route);
+          }
+          return;
+        }
+      }
+
+      if (!isUserFound) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Your ID is not correct or does not exist.",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
+        );
+      }
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "An error occurred. Please try again later.",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+      print("Error fetching admin data: $error");
+    });
   }
 }

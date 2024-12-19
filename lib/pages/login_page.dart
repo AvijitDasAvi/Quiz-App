@@ -299,6 +299,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+              Container(
+                width: MediaQuery.of(context).size.width / 3,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
         ),
