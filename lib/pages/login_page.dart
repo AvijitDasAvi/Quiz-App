@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/admin/admin_login.dart';
 import 'package:quiz_app/pages/forgot_pass_page.dart';
 import 'package:quiz_app/pages/home_page.dart';
 import 'package:quiz_app/pages/sign_up_page.dart';
@@ -299,10 +300,46 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 3,
-                decoration: BoxDecoration(
-                  color: Colors.black,
+              SizedBox(
+                height: 40.0,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdminLogin(),
+                    ),
+                  );
+                },
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    width: MediaQuery.of(context).size.width / 3.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.black,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Admin",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
