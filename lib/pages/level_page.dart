@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/pages/question.dart';
 
 // ignore: camel_case_types
 class Level_Page extends StatelessWidget {
@@ -87,23 +88,37 @@ class Level_Page extends StatelessWidget {
                 height: 20.0,
               ),
               //Continue button
-              Material(
-                elevation: 20.0,
-                borderRadius: BorderRadius.circular(15.0),
-                child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    color: Colors.white,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 105, 190),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Question(
+                        pictureLoc: pictureLoc,
+                        backgroundColor: backgroundColor,
+                        category: levelName,
+                      ),
+                    ),
+                  );
+                },
+                child: Material(
+                  elevation: 20.0,
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 0, 105, 190),
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

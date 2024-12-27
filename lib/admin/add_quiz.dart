@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/services/database.dart';
 
 class AddQuiz extends StatefulWidget {
   const AddQuiz({super.key});
@@ -30,6 +31,21 @@ class _AddQuizState extends State<AddQuiz> {
         "option4": option4controller.text,
         "correct": correctcontroller.text,
       };
+      await Database().addQuizCategory(addQuiz, selectedOption!).then(
+            (value) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.orangeAccent,
+                  content: Text(
+                    "Quiz has been add successfully.",
+                    style: TextStyle(
+                      fontSize: 15.0,
+                    ),
+                  ),
+                ),
+              )
+            },
+          );
     }
   }
 
@@ -464,24 +480,29 @@ class _AddQuizState extends State<AddQuiz> {
                 SizedBox(
                   height: 15.0,
                 ),
-                Center(
-                  child: Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 5.0),
-                      width: 180.0,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Add",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: () {
+                    uploadItem();
+                  },
+                  child: Center(
+                    child: Material(
+                      elevation: 4.0,
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 5.0),
+                        width: 180.0,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Add",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/admin/add_quiz.dart';
+import 'package:quiz_app/admin/admin_login.dart';
+import 'package:quiz_app/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
             print("Error");
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            return AddQuiz();
+            return HomePage();
           }
           return const CircularProgressIndicator();
         },

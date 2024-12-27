@@ -1,14 +1,331 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/widgets/gradient_color.dart';
+import 'package:quiz_app/services/database.dart';
 
 class Question extends StatefulWidget {
-  const Question({super.key});
+  final String pictureLoc;
+  String category;
+  final LinearGradient backgroundColor;
+  Question(
+      {required this.pictureLoc,
+      required this.backgroundColor,
+      required this.category});
 
   @override
   State<Question> createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
+  bool show = false;
+  getontheload() async {
+    QuizStream = await Database().getCategoryQuiz(widget.category);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getontheload();
+    super.initState();
+  }
+
+  Stream? QuizStream;
+  PageController controller = PageController();
+
+  Widget allQuiz() {
+    return StreamBuilder(
+      stream: QuizStream,
+      builder: (context, AsyncSnapshot snapshot) {
+        return snapshot.hasData
+            ? PageView.builder(
+                controller: controller,
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot ds = snapshot.data.docs[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Material(
+                        elevation: 5.0,
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30.0),
+                              bottomLeft: Radius.circular(30.0),
+                            ),
+                            border: Border.symmetric(
+                              vertical: BorderSide(
+                                color: Colors.black,
+                                width: 4.0,
+                              ),
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          child: Center(
+                            child: Text(
+                              ds["question"],
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      //Option container
+                      InkWell(
+                        onTap: () {
+                          show = true;
+                          setState(() {});
+                        },
+                        child: show
+                            ? Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: ds["correct"] == ds["option1"]
+                                          ? Colors.green
+                                          : Colors.red,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option1"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option1"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          show = true;
+                          setState(() {});
+                        },
+                        child: show
+                            ? Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: ds["correct"] == ds["option2"]
+                                          ? Colors.green
+                                          : Colors.red,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option2"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option2"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          show = true;
+                          setState(() {});
+                        },
+                        child: show
+                            ? Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: ds["correct"] == ds["option3"]
+                                          ? Colors.green
+                                          : Colors.red,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option3"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option3"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          show = true;
+                          setState(() {});
+                        },
+                        child: show
+                            ? Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: ds["correct"] == ds["option4"]
+                                          ? Colors.green
+                                          : Colors.red,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option4"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                      ds["option4"],
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color.fromARGB(255, 255, 94, 0),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            : Container();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +334,7 @@ class _QuestionState extends State<Question> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          gradient: firstContainer(),
+          gradient: widget.backgroundColor,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -54,12 +371,15 @@ class _QuestionState extends State<Question> {
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    child: Text(
-                      "01",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        widget.category,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
                       ),
                     ),
                   ),
@@ -90,7 +410,7 @@ class _QuestionState extends State<Question> {
               ),
               Center(
                 child: Image.asset(
-                  "assets/images/level1.png",
+                  widget.pictureLoc,
                   height: 300.0,
                   width: 300.0,
                 ),
@@ -108,112 +428,7 @@ class _QuestionState extends State<Question> {
               SizedBox(
                 height: 5.0,
               ),
-              Text(
-                "In which city of Bangladesh is the largest port?",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25.0,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              //Option container
-              Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(15.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text(
-                      "Payra",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color.fromARGB(255, 255, 94, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(15.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text(
-                      "Chittagong",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color.fromARGB(255, 255, 94, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(15.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text(
-                      "Mongla",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color.fromARGB(255, 255, 94, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(15.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text(
-                      "Matarbari",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color.fromARGB(255, 255, 94, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              allQuiz(),
             ],
           ),
         ),
